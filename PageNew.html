@@ -1,0 +1,373 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Inspirational Quote and Wallpaper</title>
+    <style>
+        /* General body and content layout */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'SF Pro Display', Roboto, sans-serif;
+            min-height: 100vh;
+            overflow: hidden;
+            position: relative;
+            color: #2c3e50;
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+            transition: background-image 1s ease-in-out;
+            background-image: linear-gradient(135deg, #e0f7fa 0%, #bbdefb 100%);
+        }
+
+        .content {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            padding: 40px;
+            text-align: center;
+            position: relative;
+            z-index: 10;
+        }
+
+        /* Quote Container */
+        .quote-container {
+            max-width: 800px;
+            width: 100%;
+            background: rgba(255, 255, 255, 1);
+            border-radius: 20px;
+            padding: 50px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            transition: all 0.4s ease;
+            color: #2c3e50;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        /* Goodreads Widget Styling */
+        #gr_quote_body {
+            background: none !important;
+            border: none !important;
+            padding: 0 !important;
+            margin: 20px 0 !important;
+        }
+
+        /* The main quote text */
+        #gr_quote_body blockquote {
+            font-style: italic !important;
+            font-size: 2.2rem !important;
+            line-height: 1.5 !important;
+            font-weight: 300 !important;
+            margin: 0 !important;
+            padding: 0 40px !important;
+            position: relative !important;
+            color: #555 !important;
+            text-align: center !important;
+        }
+
+        /* The large quotation marks */
+        #gr_quote_body blockquote::before,
+        #gr_quote_body blockquote::after {
+            content: '"' !important;
+            font-family: 'Georgia', 'serif' !important;
+            font-size: 5rem !important;
+            color: #bbb !important;
+            opacity: 0.8 !important;
+            position: absolute !important;
+            font-style: normal !important;
+        }
+        
+        #gr_quote_body blockquote::before {
+            left: 0 !important;
+            top: -20px !important;
+        }
+        
+        #gr_quote_body blockquote::after {
+            right: 0 !important;
+            bottom: -50px !important;
+        }
+
+        /* The author and source attribution */
+        #gr_quote_body cite {
+            display: block !important;
+            font-size: 1.1rem !important;
+            font-weight: 500 !important;
+            font-style: normal !important;
+            color: #333 !important;
+            text-align: right !important;
+            margin-top: 40px !important;
+            width: 100% !important;
+            position: relative;
+            padding-right: 40px;
+        }
+        
+        #gr_quote_body cite::before {
+            content: '—';
+            margin-right: 8px;
+            opacity: 0.8;
+            font-weight: 400;
+        }
+
+        #gr_quote_body a {
+            color: #333 !important;
+            text-decoration: none !important;
+            font-weight: 500;
+        }
+        
+        #gr_quote_body a.bookTitle {
+            font-style: italic;
+            font-weight: 400;
+            color: #777 !important;
+            font-size: 0.9rem !important;
+            display: block;
+            margin-top: 5px;
+        }
+
+        /* Buttons and Status */
+        .button-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 20px;
+            flex-wrap: wrap;
+            margin-top: 30px;
+        }
+
+        .quote-btn {
+            background-color: #3498db;
+            color: white;
+            border: none;
+            padding: 16px 32px;
+            border-radius: 50px;
+            cursor: pointer;
+            font-size: 1rem;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(52, 152, 219, 0.4);
+            letter-spacing: 0.5px;
+            text-transform: uppercase;
+        }
+
+        .quote-btn:hover {
+            background-color: #2980b9;
+            box-shadow: 0 6px 20px rgba(52, 152, 219, 0.5);
+            transform: translateY(-2px);
+        }
+
+        .quote-btn:active {
+            transform: translateY(0);
+        }
+
+        .wallpaper-btn {
+            background-color: #7f8c8d;
+            color: white;
+            border: none;
+            padding: 16px 32px;
+            border-radius: 50px;
+            cursor: pointer;
+            font-size: 1rem;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(127, 140, 141, 0.4);
+            letter-spacing: 0.5px;
+            text-transform: uppercase;
+        }
+        
+        .wallpaper-btn:hover {
+            background-color: #616d6e;
+            box-shadow: 0 6px 20px rgba(127, 140, 141, 0.5);
+            transform: translateY(-2px);
+        }
+        
+        .wallpaper-btn:active {
+            transform: translateY(0);
+        }
+
+        .status-message {
+            margin-top: 20px;
+            font-size: 14px;
+            color: rgba(127, 140, 141, 0.8);
+            font-weight: 400;
+            padding: 12px 20px;
+            background: rgba(255, 255, 255, 0.3);
+            border-radius: 20px;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            position: absolute;
+            bottom: 30px;
+            left: 50%;
+            transform: translateX(-50%);
+            transition: opacity 0.3s ease;
+        }
+
+        .status-message:empty {
+            opacity: 0;
+        }
+        
+        .loading {
+            opacity: 0.6;
+            pointer-events: none;
+        }
+
+        .loading::after {
+            content: '...';
+            animation: loading 1.5s infinite;
+        }
+
+        @keyframes loading {
+            0%, 20% { content: '.'; }
+            40% { content: '..'; }
+            60%, 100% { content: '...'; }
+        }
+
+        /* Responsive design */
+        @media (max-width: 768px) {
+            .content {
+                padding: 20px;
+            }
+            .quote-container {
+                padding: 30px;
+            }
+            .button-container {
+                flex-direction: column;
+                gap: 15px;
+            }
+            #gr_quote_body blockquote {
+                font-size: 1.5rem !important;
+            }
+            #gr_quote_body blockquote::before,
+            #gr_quote_body blockquote::after {
+                font-size: 3rem !important;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="content">
+        <div class="quote-container" role="main">
+            <div class="goodreads-widget-container">
+                <div id="gr_quote_body"></div>
+            </div>
+            
+            <div class="button-container">
+                <button id="newQuoteBtn" class="quote-btn">New Quote</button>
+                <button id="newWallpaperBtn" class="wallpaper-btn">New Wallpaper</button>
+            </div>
+        </div>
+    </div>
+    
+    <div class="status-message" id="statusMessage" aria-live="polite"></div>
+
+    <script>
+        const newQuoteBtn = document.getElementById('newQuoteBtn');
+        const newWallpaperBtn = document.getElementById('newWallpaperBtn');
+        const statusMessage = document.getElementById('statusMessage');
+        const body = document.body;
+        const grQuoteBody = document.getElementById('gr_quote_body');
+
+        // Curated list of aesthetic wallpapers
+        const aestheticLandscapeWallpapers = [
+            'https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=1920&h=1080&fit=crop&crop=entropy&q=85',
+            'https://images.unsplash.com/photo-1469474968028-56623f02e42e?w=1920&h=1080&fit=crop&crop=entropy&q=85',
+            'https://images.unsplash.com/photo-1441974231531-c6227db76b6e?w=1920&h=1080&fit=crop&crop=entropy&q=85',
+            'https://images.unsplash.com/photo-1518837695005-2083093ee35b?w=1920&h=1080&fit=crop&crop=entropy&q=85',
+            'https://images.unsplash.com/photo-1507525428034-b723cf961d3e?w=1920&h=1080&fit=crop&crop=entropy&q=85',
+            'https://images.unsplash.com/photo-1505142468610-359e7d316be0?w=1920&h=1080&fit=crop&crop=entropy&q=85',
+            'https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=1920&h=1080&fit=crop&crop=entropy&q=85',
+            'https://images.unsplash.com/photo-1439066615861-d1af74d74000?w=1920&h=1080&fit=crop&crop=entropy&q=85',
+            'https://images.unsplash.com/photo-1472214103451-9374bd1c798e?w=1920&h=1080&fit=crop&crop=entropy&q=85',
+            'https://images.unsplash.com/photo-1449824913935-59a10b8d2000?w=1920&h=1080&fit=crop&crop=entropy&q=85',
+            'https://images.unsplash.com/photo-1490730141103-6cac27aaab94?w=1920&h=1080&fit=crop&crop=entropy&q=85',
+            'https://images.unsplash.com/photo-1500382017468-9049fed747ef?w=1920&h=1080&fit=crop&crop=entropy&q=85',
+            'https://images.unsplash.com/photo-1542273917363-3b1817f69a2d?w=1920&h=1080&fit=crop&crop=entropy&q=85'
+        ];
+        
+        // This array will hold the URLs of wallpapers that have already been shown to avoid repeats
+        let usedWallpapers = [];
+
+        // Function to refresh the Goodreads widget
+        function refreshGoodreadsWidget() {
+            newQuoteBtn.classList.add('loading');
+            grQuoteBody.style.opacity = '0.5';
+
+            // Remove the old script tag to prevent caching
+            const oldScript = document.querySelector('script[src*="goodreads.com/quotes/widget"]');
+            if (oldScript) {
+                oldScript.remove();
+            }
+
+            // Create and append a new script tag to force a fresh quote load
+            const newScript = document.createElement('script');
+            newScript.src = 'https://www.goodreads.com/quotes/widget/13459225-aphelion?v=2&cachebust=' + Date.now();
+            newScript.type = 'text/javascript';
+            newScript.onload = () => {
+                newQuoteBtn.classList.remove('loading');
+                grQuoteBody.style.opacity = '1';
+                statusMessage.textContent = 'Quote loaded!';
+                setTimeout(() => statusMessage.textContent = '', 2000);
+            };
+            newScript.onerror = () => {
+                newQuoteBtn.classList.remove('loading');
+                statusMessage.textContent = 'Failed to load quote. Check your internet connection or Goodreads widget settings.';
+            };
+            document.body.appendChild(newScript);
+        }
+
+        // Function to set a new aesthetic landscape wallpaper
+        function setNewWallpaper() {
+            newWallpaperBtn.classList.add('loading');
+            
+            if (usedWallpapers.length >= aestheticLandscapeWallpapers.length) {
+                usedWallpapers = [];
+                statusMessage.textContent = 'All wallpapers shown, starting over!';
+                setTimeout(() => statusMessage.textContent = '', 3000);
+            }
+            
+            const availableWallpapers = aestheticLandscapeWallpapers.filter(url => !usedWallpapers.includes(url));
+            
+            if (availableWallpapers.length > 0) {
+                const randomIndex = Math.floor(Math.random() * availableWallpapers.length);
+                const selectedWallpaper = availableWallpapers[randomIndex];
+                
+                // Preload image before setting it as background
+                const img = new Image();
+                img.onload = () => {
+                    body.style.backgroundImage = `url('${selectedWallpaper}')`;
+                    newWallpaperBtn.classList.remove('loading');
+                    statusMessage.textContent = 'New wallpaper set!';
+                    setTimeout(() => statusMessage.textContent = '', 2000);
+                };
+                img.onerror = () => {
+                    newWallpaperBtn.classList.remove('loading');
+                    statusMessage.textContent = 'Failed to load wallpaper. Check your internet connection.';
+                    setTimeout(() => statusMessage.textContent = '', 5000);
+                };
+                img.src = selectedWallpaper;
+                usedWallpapers.push(selectedWallpaper);
+            }
+        }
+
+        // Initialize the page
+        function init() {
+            setNewWallpaper();
+            refreshGoodreadsWidget();
+        }
+
+        // Add event listeners
+        newQuoteBtn.addEventListener('click', refreshGoodreadsWidget);
+        newWallpaperBtn.addEventListener('click', setNewWallpaper);
+
+        // Run the initialization function when the page is fully loaded
+        document.addEventListener('DOMContentLoaded', init);
+    </script>
+</body>
+</html>
